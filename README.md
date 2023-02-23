@@ -25,24 +25,26 @@ results, and awards.
 ### Meetings
 In the `main` method (in `Season20XX.java`), record attendance for a meeting
 using the nicknames from `Members20XX.txt`:
-```
+```java
 Meeting janMeeting = new Meeting(1,
                 new String[]{"cho", "charity", "katie", 
                 "kendra", "harry", "lavender"});
 ```
 Email the meeting attendance and updated club standings 
 to `Angler.getTestListServe()` or `Angler.getOfficerListServe()`:
-```
+```java
 EmailMeetingAttendance meetingEmail = new EmailMeetingAttendance(Angler.getTestListServe(), janMeeting);
 //System.out.println(meetingEmail);
 meetingEmail.send();
 ```
-The email: ![MeetingEmail](Screenshots/MeetingEmail.png)
+The email:
+
+![MeetingEmail](Screenshots/MeetingEmail.png)
 
 ### Tournaments
 In the `main` method (in `Season20XX.java`), record tournament data
 using the nicknames from `Members20XX.txt`:
-```
+```java
 Tournament jan = new Tournament(1, "Lady Bird");
 
 jan.weighIn("harry", 5, 5, 11.2, 0,
@@ -67,16 +69,18 @@ jan.weighIn("marietta", 0, 0, 0, 0,
 ```
 Email the meeting attendance and updated club standings
 to `Angler.getTestListServe()` or `Angler.getListServe()`:
-```
+```java
 EmailTournamentResults resultsEmail = new EmailTournamentResults(Angler.getTestListServe(), jan);
 //System.out.println(resultsEmail);
 resultsEmail.send();
 ```
-The email: ![TournamentEmail](Screenshots/TournamentEmail.png)
+The email: 
+
+![TournamentEmail](Screenshots/TournamentEmail.png)
 
 ### Roster
 In the `main` method (in `Season20XX.java`), run
-```
+```java
 new RosterPDF();
 ```
 which will save a PDF containing club contact information 
@@ -89,7 +93,7 @@ At the end of the season, run the following in the
 member their personalized season recaps, which also 
 announces the Angler of the Year and other club 
 awards.
-```
+```java
 // emails just one angler's recap to Angler.getTestListServe()
 //EmailSeasonRecap recapEmail = new EmailSeasonRecap(Angler.getTestListServe(), "viktor");
 //System.out.println(recapEmail);
@@ -98,6 +102,7 @@ awards.
 EmailSeasonRecap.sendAllRecaps(false);
 ```
 Some excerpts from a sample recap email:
+
 ![RecapEmail1](Screenshots/RecapEmail1.png)
 ![RecapEmail2](Screenshots/RecapEmail2.png)
 
