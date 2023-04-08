@@ -23,8 +23,6 @@ public class Angler {
     private int tourAttendance;
     private int extraPoints;
     private Vector<Integer> fishWeighed;
-    private double fishPerDay;
-    private double weightPerDay;
     private int bigBags;
     private int wins;
     private boolean isOfficer;
@@ -63,9 +61,8 @@ public class Angler {
      * Reads Members20XX.txt, placing each member in the memberMap (as a nickname-Angler
      * instance key-value entry), as well as placing appropriate members in the officer
      * and test list serves
-     * @throws IOException
      */
-    public static void setMemberMap() throws IOException {
+    public static void setMemberMap() {
         memberMap = new HashMap<>();
         members = new ArrayList<>();
 
@@ -94,7 +91,7 @@ public class Angler {
                     phoneNumber = entry[3];
                 }
                 if (entry.length >= 5) {
-                    if(entry[4].equals("*")) {
+                    if (entry[4].equals("*")) {
                         isOfficer = true;
                     }
                 }
@@ -103,7 +100,7 @@ public class Angler {
                     officerListServe.add(email);
                 }
                 if (entry.length >= 6) {
-                    if(entry[5].equals("@")) {
+                    if (entry[5].equals("@")) {
                         testListServe.add(email);
                     }
                 }
@@ -144,13 +141,15 @@ public class Angler {
         for (Tournament tournament: Tournament.getTournaments()) {
             if (!tournament.getIsTwoDay()) {
                 if (this.equals(tournament.getTeamWeights().get(0).getBoater())
-                        || this.equals(tournament.getTeamWeights().get(0).getCoAngler()))
+                        || this.equals(tournament.getTeamWeights().get(0).getCoAngler())) {
                     count++;
+                }
             }
             else {
                 if (this.equals(tournament.getTwoDayTeamWeights().get(0).getBoater())
-                        || this.equals(tournament.getTwoDayTeamWeights().get(0).getCoAngler()))
+                        || this.equals(tournament.getTwoDayTeamWeights().get(0).getCoAngler())) {
                     count++;
+                }
             }
         }
         wins = count;
@@ -159,8 +158,9 @@ public class Angler {
     public void setBigBags() {
         int count = 0;
         for (Tournament tournament: Tournament.getTournaments()) {
-            if (this.equals(tournament.getBigBagAngler()))
+            if (this.equals(tournament.getBigBagAngler())) {
                 count++;
+            }
         }
         bigBags = count;
     }
@@ -173,14 +173,16 @@ public class Angler {
     public void setDropWeight() {
         dropWeight = 0;
         if (Tournament.getTournaments().size() == 12) {
-            if (tourAttendance == Tournament.getTournamentPointsPossible()){
+            if (tourAttendance == Tournament.getTournamentPointsPossible()) {
                 double lowestWeight = Double.MAX_VALUE;
-                for (Tournament tournament : Tournament.getTournaments()){
-                    for (TeamWeight result : tournament.getTeamWeights()){
-                        if (this.equals(result.getBoater()) && result.getBoaterWeight() < lowestWeight)
+                for (Tournament tournament : Tournament.getTournaments()) {
+                    for (TeamWeight result : tournament.getTeamWeights()) {
+                        if (this.equals(result.getBoater()) && result.getBoaterWeight() < lowestWeight) {
                             lowestWeight = result.getBoaterWeight();
-                        if (this.equals(result.getBoater()) && result.getBoaterWeight() < lowestWeight)
+                        }
+                        if (this.equals(result.getBoater()) && result.getBoaterWeight() < lowestWeight) {
                             lowestWeight = result.getBoaterWeight();
+                        }
                     }
                 }
                 dropWeight = lowestWeight;
@@ -219,16 +221,14 @@ public class Angler {
      * @return the average number of fish caught per tournament day
      */
     public double getFishPerDay() {
-        fishPerDay = (double) (totalFish)/fishWeighed.size();
-        return fishPerDay;
+        return (double) (totalFish) / fishWeighed.size();
     }
 
     /**
      * @return the average weight an angler weighed per tournament day
      */
     public double getWeightPerDay() {
-        weightPerDay = totalWeight/fishWeighed.size();
-        return weightPerDay;
+        return totalWeight / fishWeighed.size();
     }
 
     /**
@@ -261,10 +261,10 @@ public class Angler {
         else if (bigBags == 2)
             return bigBagLakes[0] + " and " + bigBagLakes[1];
         else {
-            String str = "and " + bigBagLakes[bigBags-1];
-            for (int j=0; j<bigBags-1; j++)
-                str = bigBagLakes[bigBags-2-j] + ", " + str;
-            return str;
+            StringBuilder str = new StringBuilder("and " + bigBagLakes[bigBags-1]);
+            for (int j = 0; j < bigBags-1; j++)
+                str.insert(0, bigBagLakes[bigBags-2-j] + ", ");
+            return str.toString();
         }
     }
 
@@ -276,23 +276,26 @@ public class Angler {
     public String getBigBassLakes() {
         ArrayList<Tournament> bigBassEvents = new ArrayList<>();
         for (Tournament tournament : Tournament.getTournaments()) {
-            if (this.equals(tournament.getBigBassAngler()))
+            if (this.equals(tournament.getBigBassAngler())) {
                 bigBassEvents.add(tournament);
+            }
         }
         int bigBass = bigBassEvents.size();
-        if (bigBass == 0)
+        if (bigBass == 0) {
             return "";
-        else if (bigBass == 1)
+        }
+        else if (bigBass == 1) {
             return bigBassEvents.get(0).getLake();
-        else if (bigBass == 2)
-            return bigBassEvents.get(0).getLake() + " and "
-                    + bigBassEvents.get(1).getLake();
+        }
+        else if (bigBass == 2) {
+            return bigBassEvents.get(0).getLake() + " and " + bigBassEvents.get(1).getLake();
+        }
         else {
-            String str = "and "
-                    + bigBassEvents.get(bigBass-1).getLake();
-            for (int j=0; j<bigBass-1; j++)
-                str = bigBassEvents.get(bigBass-2-j).getLake() + ", " + str;
-            return str;
+            StringBuilder str = new StringBuilder("and " + bigBassEvents.get(bigBass-1).getLake());
+            for (int j = 0; j < bigBass-1; j++) {
+                str.insert(0, bigBassEvents.get(bigBass - 2 - j).getLake() + ", ");
+            }
+            return str.toString();
         }
     }
 
@@ -308,7 +311,7 @@ public class Angler {
         int i = 0;
         ArrayList<Tournament> events = new ArrayList<>(Tournament.getTournaments());
         for (Tournament event : events) {
-            if (!event.getIsTwoDay()){
+            if (!event.getIsTwoDay()) {
                 ArrayList<TeamWeight> finishes = new ArrayList<>(event.getTeamWeights());
                 if (this.equals(finishes.get(0).getBoater()) || this.equals(finishes.get(0).getCoAngler())) {
                     winLakes[i] = event.getLake();
@@ -328,10 +331,11 @@ public class Angler {
         else if (wins == 2)
             return winLakes[0] + " and " + winLakes[1];
         else {
-            String str = "and " + winLakes[wins-1];
-            for (int j=0; j<wins-1; j++)
-                str = winLakes[wins-2-j] + ", " + str;
-            return str;
+            StringBuilder str = new StringBuilder("and " + winLakes[wins-1]);
+            for (int j = 0; j < wins-1; j++) {
+                str.insert(0, winLakes[wins - 2 - j] + ", ");
+            }
+            return str.toString();
         }
     }
 
@@ -345,13 +349,14 @@ public class Angler {
      *          for a given <code>Angler</code>
      */
     public String getAllFinishes() {
-        String finishes = String.format("%-10s%-13s%-7s%-19s%6s%7s%8s%4s%-19s%6s%7s%8s%8s",
+        StringBuilder finishes = new StringBuilder(
+                String.format("%-10s%-13s%-7s%-19s%6s%7s%8s%4s%-19s%6s%7s%8s%8s",
                 "Month", "Lake", "Place", "Boater", "Fish", "Big", "Weight", "",
-                "Co-angler", "Fish", "Big", "Weight", "Total")+"\n";
+                "Co-angler", "Fish", "Big", "Weight", "Total")+"\n");
         ArrayList<Tournament> events = new ArrayList<>(Tournament.getTournaments());
         for (Tournament event : events) {
             ArrayList<TeamWeight> weighIns = new ArrayList<>(event.getTeamWeights());
-            if (!event.getIsTwoDay()){
+            if (!event.getIsTwoDay()) {
                 for (TeamWeight teamWeight : weighIns) {
                     if (this.equals(teamWeight.getBoater()) || this.equals(teamWeight.getCoAngler())) {
                         int i = weighIns.indexOf(teamWeight);
@@ -373,11 +378,13 @@ public class Angler {
                         if (tiedAbove || tiedBelow)
                             newPlace += "T";
                         newPlace += teamWeight.getPlace() + "/";
-                        finishes += String.format("%-10s%-12s%4s%-4s",
+                        finishes.append(String.format("%-10s%-12s%4s%-4s",
                                 event.getMonth(),
                                 event.getLake(),
                                 newPlace,
-                                weighIns.size()) + teamWeight.toString().substring(6) + "\n";
+                                weighIns.size()))
+                                .append(teamWeight.toString().substring(6))
+                                .append("\n");
                     }
                 }
             }
@@ -421,17 +428,19 @@ public class Angler {
                             if (tiedAbove || tiedBelow)
                                 newPlace += "T";
                             newPlace += tempPlace + "/";
-                            finishes += String.format("%-10s%-12s%4s%-4s",
+                            finishes.append(String.format("%-10s%-12s%4s%-4s",
                                     event.getMonth(),
                                     event.getLake(),
                                     newPlace,
-                                    dayNWeighIns.size()) + teamWeight.toString().substring(6) + "\n";
+                                    dayNWeighIns.size()))
+                                    .append(teamWeight.toString().substring(6))
+                                    .append("\n");
                         }
                     }
                 }
             }
         }
-        return finishes;
+        return finishes.toString();
     }
 
     /**
@@ -441,21 +450,23 @@ public class Angler {
      */
     public static String getHTMLAllFinishes(String anglerNickname) {
         Angler angler = getMemberMap().get(anglerNickname);
-        String finishes = "<center><table style=\"width:60em\">"
-                + "<tr>"
-                + "<th style=\"text-align: left\">Month</th>"
-                + "<th style=\"text-align: left\">Lake</th>"
-                + "<th>Place</th>"
-                + "<th style=\"text-align: left\">Boater</th>"
-                + "<th>Fish</th>"
-                + "<th style=\"text-align: right\">Big</th>"
-                + "<th style=\"text-align: right\">Weight</th><th style=\"width:1em\"></th>"
-                + "<th style=\"text-align: left\">Co-angler</th>"
-                + "<th>Fish</th>"
-                + "<th style=\"text-align: right\">Big</th>"
-                + "<th style=\"text-align: right\">Weight</th>"
-                + "<th style=\"text-align: right\">Total</th>"
-                + "</tr>";
+        StringBuilder finishes = new StringBuilder("""
+                <center>
+                    <table style="width:60em">
+                        <tr>
+                            <th style="text-align: left">Month</th>
+                            <th style="text-align: left">Lake</th>
+                            <th>Place</th><th style="text-align: left">Boater</th>
+                            <th>Fish</th><th style="text-align: right">Big</th>
+                            <th style="text-align: right">Weight</th>
+                            <th style="width:1em"></th>
+                            <th style="text-align: left">Co-angler</th>
+                            <th>Fish</th>
+                            <th style="text-align: right">Big</th>
+                            <th style="text-align: right">Weight</th>
+                            <th style="text-align: right">Total</th>
+                        </tr>
+                """);
         ArrayList<Tournament> events = new ArrayList<>(Tournament.getTournaments());
         for (Tournament event : events) {
             ArrayList<TeamWeight> weighIns = new ArrayList<>(event.getTeamWeights());
@@ -481,11 +492,14 @@ public class Angler {
                         if (tiedAbove || tiedBelow)
                             newPlace += "T";
                         newPlace += teamWeight.getPlace() + "/" + weighIns.size();
-                        finishes += "<tr>"
-                                + "<td>" + event.getMonth() + "</td>"
-                                + "<td>" + event.getLake() + "</td>"
-                                + "<td  style=\"text-align: center\">" + newPlace + "</td>"
-                                + teamWeight.toHTMLString().substring(teamWeight.toHTMLString().indexOf("/") + 4);
+                        finishes.append("<tr><td>")
+                                .append(event.getMonth())
+                                .append("</td><td>")
+                                .append(event.getLake())
+                                .append("</td><td  style=\"text-align: center\">")
+                                .append(newPlace)
+                                .append("</td>")
+                                .append(teamWeight.toHTMLString().substring(teamWeight.toHTMLString().indexOf("/") + 4));
                     }
                 }
             }
@@ -529,18 +543,21 @@ public class Angler {
                             if (tiedAbove || tiedBelow)
                                 newPlace += "T";
                             newPlace += tempPlace + "/" + dayNWeighIns.size();
-                            finishes += "<tr>"
-                                    + "<td>" + event.getMonth() + "</td>"
-                                    + "<td>" + event.getLake() + "</td>"
-                                    + "<td  style=\"text-align: center\">" + newPlace + "</td>"
-                                    + teamWeight.toHTMLString().substring(teamWeight.toHTMLString().indexOf("/") + 4);
+                            finishes.append("<tr><td>")
+                                    .append(event.getMonth())
+                                    .append("</td><td>")
+                                    .append(event.getLake())
+                                    .append("</td><td  style=\"text-align: center\">")
+                                    .append(newPlace)
+                                    .append("</td>")
+                                    .append(teamWeight.toHTMLString().substring(teamWeight.toHTMLString().indexOf("/") + 4));
                         }
                     }
                 }
             }
         }
-        finishes += "</table></center>";
-        return finishes;
+        finishes.append("</table></center>");
+        return finishes.toString();
     }
 
     public double getDropWeight() {
@@ -554,63 +571,71 @@ public class Angler {
      */
     public static String getSeasonRecap(String anglerNickname) {
         Angler angler = getMemberMap().get(anglerNickname);
-        String str = "Here are your tournament finishes from this year:\n\n";
-        str += angler.getAllFinishes();
+        StringBuilder str = new StringBuilder("Here are your tournament finishes from this year:\n\n");
+        str.append(angler.getAllFinishes());
         String accolades = "";
         if (angler.getBigBags() >= 1) {
             accolades += "You had big bag of the tournament on "
                     + angler.getBigBagLakes();
-            if (!angler.getBigBassLakes().equals(""))
+            if (!angler.getBigBassLakes().equals("")) {
                 accolades += ", and you had big bass of the tournament on "
                         + angler.getBigBassLakes() + "! ";
-            else
+            }
+            else {
                 accolades += "! ";
+            }
         }
-        else if (!angler.getBigBassLakes().equals(""))
+        else if (!angler.getBigBassLakes().equals("")) {
             accolades += "You had big bass of the tournament on "
                     + angler.getBigBassLakes() + "! ";
-        if (!accolades.equals(""))
-            str += "\n" + accolades + "\n";
+        }
+        if (!accolades.equals("")) {
+            str.append("\n").append(accolades).append("\n");
+        }
         angler.setDropWeight();
-        if (Tournament.getTournaments().size() == 12){
-            str += "\n";
-            if (angler.tourAttendance == Tournament.getTournamentPointsPossible()){
+        if (Tournament.getTournaments().size() == 12) {
+            str.append("\n");
+            if (angler.tourAttendance == Tournament.getTournamentPointsPossible()) {
                 String month = "";
                 String lake = "";
-                for (Tournament tournament : Tournament.getTournaments()){
+                for (Tournament tournament : Tournament.getTournaments()) {
                     for (TeamWeight result : tournament.getTeamWeights()) {
                         if ((angler.equals(result.getBoater()) && angler.dropWeight == result.getBoaterWeight())
                                 || (angler.equals(result.getCoAngler()) && angler.dropWeight == result.getCoAnglerWeight())) {
-                            month += tournament.getMonth();
-                            lake += tournament.getLake();
+                            month = tournament.getMonth();
+                            lake = tournament.getLake();
                             break;
                         }
                     }
                     if (!month.equals(""))
                         break;
                 }
-                str += "You fished every tournament this year, so your worst finish ("
-                        + month + ", " + lake + ", " + angler.getDropWeight()
-                        + " lbs) was dropped from your total points in the AOY standings.";
+                str.append("You fished every tournament this year, so your worst finish (")
+                        .append(month)
+                        .append(", ")
+                        .append(lake)
+                        .append(", ")
+                        .append(angler.getDropWeight())
+                        .append(" lbs) was dropped from your total points in the AOY standings.");
             }
             else {
                 int missedTourneys = 12;
-                for (Tournament tournament : Tournament.getTournaments()){
-                    for (TeamWeight result : tournament.getTeamWeights()){
+                for (Tournament tournament : Tournament.getTournaments()) {
+                    for (TeamWeight result : tournament.getTeamWeights()) {
                         if (angler.equals(result.getBoater()) || angler.equals(result.getCoAngler())) {
                             missedTourneys--;
                             break;
                         }
                     }
                 }
-                str += "You missed " + missedTourneys + " tournament";
-                if (missedTourneys > 1)
-                    str += "s";
-                str += " this year, so no weight was dropped "
-                        + "from your total points in the AOY standings.";
+                str.append("You missed ").append(missedTourneys).append(" tournament");
+                if (missedTourneys > 1) {
+                    str.append("s");
+                }
+                str.append(" this year, so no weight was dropped from your total points in the AOY standings.");
             }
         }
-        return str;
+        return str.toString();
     }
 
     /**
@@ -620,76 +645,85 @@ public class Angler {
     public static String getSeasonRecapHTML(String anglerNickname) {
         Angler angler = getMemberMap().get(anglerNickname);
         boolean fishedThisYear = angler.getTourAttendance() > 0;
-        String str = "<p>Hey " + angler.getName().split(" ")[0] + "!</p><p>"
-                    + "Here's your BSCBC season recap";
-        if (fishedThisYear)
-            str += ", starting with your tournament finishes from this year:</p>"
-                    + getHTMLAllFinishes(anglerNickname);
-        else
-            str += ".</p>";
+        StringBuilder str = new StringBuilder("<p>Hey " + angler.getName().split(" ")[0] + "!</p><p>"
+                    + "Here's your BSCBC season recap");
+        if (fishedThisYear) {
+            str.append(", starting with your tournament finishes from this year:</p>")
+                    .append(getHTMLAllFinishes(anglerNickname));
+        }
+        else {
+            str.append(".</p>");
+        }
         String accolades = "";
         if (angler.getBigBags() >= 1) {
             accolades += "You had big bag of the tournament on "
                     + angler.getBigBagLakes();
-            if (!angler.getBigBassLakes().equals(""))
+            if (!angler.getBigBassLakes().equals("")) {
                 accolades += ", and you had big bass of the tournament on "
                         + angler.getBigBassLakes() + "! ";
-            else
+            }
+            else {
                 accolades += "! ";
+            }
         }
-        else if (!angler.getBigBassLakes().equals(""))
+        else if (!angler.getBigBassLakes().equals("")) {
             accolades += "You had big bass of the tournament on "
                     + angler.getBigBassLakes() + "! ";
-        if (!accolades.equals(""))
-            str += "<p>" + accolades + " Congrats!</p>";
+        }
+        if (!accolades.equals("")) {
+            str.append("<p>").append(accolades).append(" Congrats!</p>");
+        }
         angler.setDropWeight();
-        if (Tournament.getTournaments().size() == 12){
-            str += "\n";
-            if (angler.tourAttendance == Tournament.getTournamentPointsPossible()){
+        if (Tournament.getTournaments().size() == 12) {
+            str.append("\n");
+            if (angler.tourAttendance == Tournament.getTournamentPointsPossible()) {
                 String month = "";
                 String lake = "";
-                for (Tournament tournament : Tournament.getTournaments()){
+                for (Tournament tournament : Tournament.getTournaments()) {
                     for (TeamWeight result : tournament.getTeamWeights()) {
                         if ((angler.equals(result.getBoater()) && angler.dropWeight == result.getBoaterWeight())
                                 || (angler.equals(result.getCoAngler()) && angler.dropWeight == result.getCoAnglerWeight())) {
-                            month += tournament.getMonth();
-                            lake += tournament.getLake();
+                            month = tournament.getMonth();
+                            lake = tournament.getLake();
                             break;
                         }
                     }
-                    if (!month.equals(""))
+                    if (!month.equals("")) {
                         break;
+                    }
                 }
-                str += "<p>You fished every tournament this year, so your worst finish ("
-                        + month + ", " + lake + ", " + angler.getDropWeight()
-                        + " lbs) was dropped from your total points in the AOY standings.</p>";
+                str.append("<p>You fished every tournament this year, so your worst finish (")
+                        .append(month).append(", ").append(lake).append(", ")
+                        .append(angler.getDropWeight())
+                        .append(" lbs) was dropped from your total points in the AOY standings.</p>");
             }
             else {
                 int missedTourneys = 12;
-                for (Tournament tournament : Tournament.getTournaments()){
-                    for (TeamWeight result : tournament.getTeamWeights()){
+                for (Tournament tournament : Tournament.getTournaments()) {
+                    for (TeamWeight result : tournament.getTeamWeights()) {
                         if (angler.equals(result.getBoater()) || angler.equals(result.getCoAngler())) {
                             missedTourneys--;
                             break;
                         }
                     }
                 }
-                str += "<p>You missed " + missedTourneys + " tournament";
-                if (missedTourneys > 1)
-                    str += "s";
-                str += " this year, so no weight was dropped "
-                        + "from your total points in the AOY standings.</p>";
+                str.append("<p>You missed ").append(missedTourneys).append(" tournament");
+                if (missedTourneys > 1) {
+                    str.append("s");
+                }
+                str.append(" this year, so no weight was dropped "
+                        + "from your total points in the AOY standings.</p>");
             }
         }
-        str += getHTMLStandings();
-        if (angler.getRank() == 1)
-            str += "<p>Congratulations on winning AOY!</p>";
-        else
-            str += "<p>Congratulations to our AOY, "
-                    + members.get(0).getName()
-                    +"! ";
-        str += "Further congratulations to our winners of other accolades:</p>";
-        str += Tournament.getHTMLAwards();
+        str.append(getHTMLStandings());
+        if (angler.getRank() == 1) {
+            str.append("<p>Congratulations on winning AOY!</p>");
+        }
+        else {
+            str.append("<p>Congratulations to our AOY, ").append(members.get(0).getName()).append("! ");
+        }
+        str.append("Further congratulations to our winners of other accolades:</p>");
+        str.append(Tournament.getHTMLAwards());
         if (fishedThisYear) {
             String timeOrTimes = " times";
             if (angler.getBigBags() == 1)
@@ -697,24 +731,28 @@ public class Angler {
             String eventOrEvents = " events";
             if (angler.getWins() == 1)
                 eventOrEvents = " event";
-            str += "<p>See how you stacked up! This year you:"
-                    + "<ul><li>averaged "
-                    + String.format("%.2f", angler.getFishPerDay())
-                    + " fish and "
-                    + String.format("%.2f", angler.getWeightPerDay())
-                    + " pounds per day,</li><li>had big bag of the tournament "
-                    + angler.getBigBags() + timeOrTimes
-                    + ", and</li><li>won "
-                    + angler.getWins() + eventOrEvents
-                    + ".</li></ul></p>";
+            str.append("<p>See how you stacked up! This year you:<ul><li>averaged ")
+                    .append(String.format("%.2f", angler.getFishPerDay()))
+                    .append(" fish and ")
+                    .append(String.format("%.2f", angler.getWeightPerDay()))
+                    .append(" pounds per day,</li><li>had big bag of the tournament ")
+                    .append(angler.getBigBags()).append(timeOrTimes)
+                    .append(", and</li><li>won ")
+                    .append(angler.getWins())
+                    .append(eventOrEvents)
+                    .append(".</li></ul></p>");
         }
-        str += "<p>Another year in the books! Start next year off right at"
-                + " our January meeting and tournament. Keep up with us on our "
-                + Email.WEBSITE_HTML_HYPERLINK + ", " + Email.FACEBOOK_HTML_HYPERLINK
-                + ", and " + Email.INSTAGRAM_HTML_HYPERLINK + ".</p>";
-        str += "<p>Happy holidays!<br>Big Sandy Creek Bass Club</p>";
-        str += Email.getUnsubscribeHTML();
-        return str;
+        str.append("<p>Another year in the books! Start next year off right at")
+                .append(" our January meeting and tournament. Keep up with us on our ")
+                .append(Email.WEBSITE_HTML_HYPERLINK)
+                .append(", ")
+                .append(Email.FACEBOOK_HTML_HYPERLINK)
+                .append(", and ")
+                .append( Email.INSTAGRAM_HTML_HYPERLINK)
+                .append(".</p>")
+                .append("<p>Happy holidays!<br>Big Sandy Creek Bass Club</p>")
+                .append(Email.getUnsubscribeHTML());
+        return str.toString();
     }
 
     public double getTotalPoints() {
@@ -728,18 +766,21 @@ public class Angler {
     public static String getStandings() {
         members.sort(Comparator.comparing(Angler::getName));
         members.sort(Comparator.comparing(Angler::getTotalPoints).reversed());
-        String standings = String.format("%-4s%2s%-20s%6s%10s%16s%17s%15s",
-                "Rank", "", "Angler", "Points", "Weight", "Meeting points", "Tour attendance", "Extra points\n");
+        StringBuilder standings = new StringBuilder(
+                String.format("%-4s%2s%-20s%6s%10s%16s%17s%15s",
+                "Rank", "", "Angler", "Points", "Weight", "Meeting points", "Tour attendance", "Extra points\n")
+        );
         members.get(0).setRank(1);
-        standings += members.get(0) + "\n";
+        standings.append(members.get(0)).append("\n");
         int j = 1;
         for (int i = 2; i <= members.size(); i++) {
-            if (members.get(i-2).getTotalPoints() != members.get(i-1).getTotalPoints())
+            if (members.get(i-2).getTotalPoints() != members.get(i-1).getTotalPoints()) {
                 j = i;
+            }
             members.get(i-1).setRank(j);
-            standings += members.get(i-1) + "\n";
+            standings.append(members.get(i-1)).append("\n");
         }
-        return standings;
+        return standings.toString();
     }
 
     /**
@@ -748,29 +789,32 @@ public class Angler {
     public static String getHTMLStandings() {
         members.sort(Comparator.comparing(Angler::getName));
         members.sort(Comparator.comparing(Angler::getTotalPoints).reversed());
-        String standings = "<center><table style=\"width:45em\">";
-        standings += "<tr>"
-                        + "<th style=\"text-align: left\">Rank</th>"
-                        + "<th style=\"text-align: left\">Angler</th>"
-                        + "<th style=\"text-align: right\">Points</th>"
-                        + "<th style=\"text-align: right\">Weight</th>"
-                        + "<th>Meeting points</th>"
-                        + "<th>Tour attendance</th>"
-                        + "<th>Extra points</th>"
-                    + "</tr>";
+        StringBuilder standings = new StringBuilder("""
+                <center>
+                    <table style="width:45em">
+                    <tr>
+                        <th style="text-align: left">Rank</th>
+                        <th style="text-align: left">Angler</th>
+                        <th style="text-align: right">Points</th>
+                        <th style="text-align: right">Weight</th>
+                        <th>Meeting points</th><th>Tour attendance</th>
+                        <th>Extra points</th>
+                    </tr>
+                """);
         members.get(0).setRank(1);
-        standings += members.get(0).toHTMLString();
+        standings.append(members.get(0).toHTMLString());
         int j = 1;
         for (int i = 2; i <= members.size(); i++) {
-            if (members.get(i-2).getTotalPoints() != members.get(i-1).getTotalPoints())
+            if (members.get(i-2).getTotalPoints() != members.get(i-1).getTotalPoints()) {
                 j = i;
+            }
             members.get(i-1).setRank(j);
             // only add active participants to standings printed in emails
             if (members.get(i-1).getTotalPoints() != 0)
-                standings += members.get(i-1).toHTMLString();
+                standings.append(members.get(i-1).toHTMLString());
         }
-        standings += "</table></center>";
-        return standings;
+        standings.append("</table></center>");
+        return standings.toString();
     }
 
     /**
@@ -807,23 +851,27 @@ public class Angler {
      */
     public static String getMissingContacts() {
         ArrayList<Angler> lst = getAnglersWithMissingContacts();
-        String print = String.format("%-19s%4s%-16s",
-                "     Angler", "", "Missing info") + "\n";
+        StringBuilder print = new StringBuilder(
+                String.format("%-19s%4s%-16s", "     Angler", "", "Missing info") + "\n"
+        );
         if (!lst.isEmpty()) {
             for (Angler angler : lst) {
                 String email = "";
                 String number = "";
-                if (angler.email.equals(""))
+                if (angler.email.equals("")) {
                     email = "email";
-                if (angler.phoneNumber.equals(""))
+                }
+                if (angler.phoneNumber.equals("")) {
                     number = "phone number";
-                print += String.format("%-19s%-8s%-12s",
+                }
+                print.append(String.format("%-19s%-8s%-12s",
                         angler.name,
                         email,
-                        number) + "\n";
+                        number))
+                        .append("\n");
             }
         }
-        return print;
+        return print.toString();
     }
 
     /**
@@ -833,46 +881,49 @@ public class Angler {
      */
     public static String getMissingContactsHTML() {
         ArrayList<Angler> lst = getAnglersWithMissingContacts();
-        String print = "";
+        StringBuilder print = new StringBuilder();
         if (!lst.isEmpty()) {
-            String mailTo1 = "<a href=\"mailto:bigsandycreek@gmail.com?subject=BSCBC member contact info&" +
-                    "body=I have contact info for...\">Help us</a>";
-            String p3 = "<p>" + mailTo1
-                    + " get a hold of the missing contact info listed below. Thanks!</p>";
-            print += p3
-                    + "<center><table style=\"width:22em\">"
-                    + "<tr>"
-                    + "<th>Angler</th>"
-                    + "<th colspan=\"2\">Missing info</th>"
-                    + "</tr>";
+            print.append("<p>")
+                    .append("<a href=\"mailto:bigsandycreek@gmail.com?subject=BSCBC member contact info&")
+                    .append("body=I have contact info for...\">Help us</a>")
+                    .append(" get a hold of the missing contact info listed below. Thanks!</p>")
+                    .append("<center><table style=\"width:22em\">")
+                    .append("<tr><th>Angler</th><th colspan=\"2\">Missing info</th></tr>");
             for (Angler angler : lst) {
                 String email = "<td></td>";
                 String number = "<td></td>";
-                if (angler.email.equals(""))
+                if (angler.email.equals("")) {
                     email = "<td style=\"text-align: center\">email</td>";
-                if (angler.phoneNumber.equals(""))
+                }
+                if (angler.phoneNumber.equals("")) {
                     number = "<td style=\"text-align: center\">phone number</td>";
-                print += "<tr>" + "<td>" + angler.name +
-                        "</td>" + email + number + "</tr>";
+                }
+                print.append("<tr><td>")
+                        .append(angler.name)
+                        .append("</td>")
+                        .append(email).append(number)
+                        .append("</tr>");
             }
-            print += "</table></center>";
+            print.append("</table></center>");
         }
-        return print;
+        return print.toString();
     }
 
     @Override
     public boolean equals(Object obj) {
-        if (obj == null)
+        if (obj == null) {
             return false;
-        if (getClass() != obj.getClass())
+        }
+        if (getClass() != obj.getClass()) {
             return false;
+        }
         Angler a = (Angler) obj;
         return this.getName().equals(a.getName())
                 && this.getEmail().equals(a.getEmail())
                 && this.getPhoneNumber().equals(a.getPhoneNumber());
     }
 
-    public int compareTo(Angler otherAngler){
+    public int compareTo(Angler otherAngler) {
         return this.getName().compareTo(otherAngler.getName());
     }
 

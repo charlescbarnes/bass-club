@@ -2,7 +2,7 @@ import java.util.Arrays;
 
 public class Meeting {
     private String month;
-    private String email;
+    private StringBuilder email;
 
     /**
      * Class constructor
@@ -26,7 +26,7 @@ public class Meeting {
         if (monthNumber == 12) { month = "December"; }
 
         // create HTML string for meeting attendance email body
-        email = "<h2>" + month + " meeting attendance</h2><ol>";
+        email = new StringBuilder("<h2>" + month + " meeting attendance</h2><ol>");
         Angler[] anglersPresent = new Angler[attendance.length];
         for (int i = 0; i < attendance.length; i++) {
             anglersPresent[i] = Angler.getMemberMap().get(attendance[i]);
@@ -37,13 +37,12 @@ public class Meeting {
             // give angler meeting attendance points
             angler.addMeetingPoints();
             // and add the angler to an ordered list
-            email += "<li>" + angler.getName() + "</li>";
+            email.append("<li>").append(angler.getName()).append("</li>");
         }
-        email += "</ol><h2>Updated standings</h2>"
-                + Angler.getHTMLStandings();
+        email.append("</ol><h2>Updated standings</h2>").append(Angler.getHTMLStandings());
     }
 
     public String getMonth() { return month; }
 
-    public String toString() { return email; }
+    public String toString() { return email.toString(); }
 }

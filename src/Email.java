@@ -121,10 +121,12 @@ public class Email {
             }
             // add them as (the correct type of) recipients of the message
             for (InternetAddress address : toAddress) {
-                if (BCCRecipients)
+                if (BCCRecipients) {
                     message.addRecipient(Message.RecipientType.BCC, address);
-                else
+                }
+                else {
                     message.addRecipient(Message.RecipientType.TO, address);
+                }
             }
 
             message.setSubject(subject);
@@ -148,8 +150,8 @@ public class Email {
             multipart.addBodyPart(messageBodyPart);
 
             // third part (attachments)
-            if (attachments != null){
-                for (Map.Entry<String, String> attachment : attachments.entrySet()){
+            if (attachments != null) {
+                for (Map.Entry<String, String> attachment : attachments.entrySet()) {
                     MimeBodyPart attachmentBodyPart = new MimeBodyPart();
                     DataSource source = new FileDataSource(attachment.getValue());
                     attachmentBodyPart.setDataHandler(new DataHandler(source));
@@ -187,19 +189,20 @@ public class Email {
     }
 
     public String toString() {
-        String output = "To: " + recipients;
-        output += "\n\nSubject: " + subject;
-        output += "\n\nBody: " + body;
+        StringBuilder output = new StringBuilder("To: " + recipients);
+        output.append("\n\nSubject: ").append(subject)
+                .append("\n\nBody: ").append(body);
         if (attachments != null) {
             String[] attachmentNames = new String[attachments.size()];
             attachments.keySet().toArray(attachmentNames);
-            output += "\n\nAttachments: ";
-            for (int i = 0; i < attachments.size(); i++){
-                output += attachmentNames[i];
-                if (i != attachments.size()-1)
-                    output += ", ";
+            output.append("\n\nAttachments: ");
+            for (int i = 0; i < attachments.size(); i++) {
+                output.append(attachmentNames[i]);
+                if (i != attachments.size()-1) {
+                    output.append(", ");
+                }
             }
         }
-        return output;
+        return output.toString();
     }
 }

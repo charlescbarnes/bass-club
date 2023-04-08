@@ -25,8 +25,8 @@ public class RosterPDF {
             // create a page
             PDPage page = new PDPage();
             // get dimensions of page, set margins
-            int pageWidth = (int)page.getTrimBox().getWidth();
-            int pageHeight = (int)page.getTrimBox().getHeight();
+            int pageWidth = (int) page.getTrimBox().getWidth();
+            int pageHeight = (int) page.getTrimBox().getHeight();
             int marginTB = 50;
             int marginLR = 75;
 
@@ -37,7 +37,7 @@ public class RosterPDF {
             int reduceByFactor = 5;
             logoWidth /= reduceByFactor;
             logoHeight /= reduceByFactor;
-            int logoX = (pageWidth-logoWidth)/2;
+            int logoX = (pageWidth-logoWidth) / 2;
             int logoY = pageHeight-logoHeight-marginTB;
 
             // font stuff
@@ -52,13 +52,13 @@ public class RosterPDF {
 
             // table specifications
             int initX = marginLR;
-            int initY = logoY - marginTB/2;
+            int initY = logoY - marginTB / 2;
             int deltaY = (int) (1.5 * fontSize);
             int colCount = 3;
 
             // determine number of pages needed
             int membersPerPage = (logoY - marginTB/2 - marginTB) / deltaY;
-            int numPagesNeeded = (Angler.getMembers().size()-1) / membersPerPage + 1;
+            int numPagesNeeded = (Angler.getMembers().size() - 1) / membersPerPage + 1;
 
             // create the necessary number of pages
             ArrayList<PDPage> pageArrayList = new ArrayList<>();
@@ -115,10 +115,12 @@ public class RosterPDF {
                             Angler angler = Angler.getMembers().get(i);
                             contents.beginText();
                             contents.newLineAtOffset(initX, initY);
-                            if (angler.getIsOfficer())
+                            if (angler.getIsOfficer()) {
                                 contents.setFont(PDType1Font.COURIER_BOLD, fontSize);
-                            else
+                            }
+                            else {
                                 contents.setFont(font, fontSize);
+                            }
                             if (j == 0) {
                                 contents.showText(angler.getName());
                                 initX = phoneX;
@@ -138,7 +140,7 @@ public class RosterPDF {
                 }
                 // reset the member index and the starting point for the table on the next page
                 memberIndex += membersPerPage;
-                initY = logoY - marginTB/2;
+                initY = logoY - marginTB / 2;
             }
             doc.save(DESTINATION_FILE_PATH);
         }

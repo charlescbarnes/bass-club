@@ -50,7 +50,7 @@ public class Tournament {
      * @param lake          the location of the tournament, as a <code>String</code>
      * @param isTwoDay      denotes a 2-day tournament if true; a 1-day tournament if false
      */
-    public Tournament(int monthNumber, String lake, boolean isTwoDay){
+    public Tournament(int monthNumber, String lake, boolean isTwoDay) {
         if (monthNumber == 1) { month = "January"; }
         if (monthNumber == 2) { month = "February"; }
         if (monthNumber == 3) { month = "March"; }
@@ -91,14 +91,18 @@ public class Tournament {
         boater.addTourAttendance(2);
         coAngler.addTourAttendance(2);
         fishTotal += boaterFish + coFish;
-        if (boaterFish == 5)
+        if (boaterFish == 5) {
             boaterLimits++;
-        if (boaterFish == 0)
+        }
+        if (boaterFish == 0) {
             boaterZeros++;
-        if (coFish == 5)
+        }
+        if (coFish == 5) {
             coLimits++;
-        if (coFish == 0)
+        }
+        if (coFish == 0) {
             coZeros++;
+        }
         weightTotal += boaterWeight + coWeight;
         double boaterWeightAfterPenalties = boaterWeight - (boaterFish-boaterFishAlive)*DEAD_FISH_PENALTY;
         double coWeightAfterPenalties = coWeight - (coFish-coFishAlive)*DEAD_FISH_PENALTY;
@@ -138,10 +142,12 @@ public class Tournament {
         anglers += 1;
         boater.addTourAttendance(2);
         fishTotal += boaterFish;
-        if (boaterFish == 5)
+        if (boaterFish == 5) {
             boaterLimits++;
-        if (boaterFish == 0)
+        }
+        if (boaterFish == 0) {
             boaterZeros++;
+        }
         weightTotal += boaterWeight;
         double boaterWeightAfterPenalties = boaterWeight - (boaterFish-boaterFishAlive)*DEAD_FISH_PENALTY;
         if (boaterWeightAfterPenalties > bigBagWeight) {
@@ -191,14 +197,18 @@ public class Tournament {
             coAngler.addTourAttendance(3);
         }
         fishTotal += boaterFish + coFish;
-        if (boaterFish == 5)
+        if (boaterFish == 5) {
             boaterLimits++;
-        if (boaterFish == 0)
+        }
+        if (boaterFish == 0) {
             boaterZeros++;
-        if (coFish == 5)
+        }
+        if (coFish == 5) {
             coLimits++;
-        if (coFish == 0)
+        }
+        if (coFish == 0) {
             coZeros++;
+        }
         weightTotal += boaterWeight + coWeight;
         double boaterWeightAfterPenalties = boaterWeight - (boaterFish - boaterFishAlive) * DEAD_FISH_PENALTY;
         double coWeightAfterPenalties = coWeight - (coFish - coFishAlive) * DEAD_FISH_PENALTY;
@@ -247,10 +257,12 @@ public class Tournament {
             boater.addTourAttendance(3);
         }
         fishTotal += boaterFish;
-        if (boaterFish == 5)
+        if (boaterFish == 5) {
             boaterLimits++;
-        if (boaterFish == 0)
+        }
+        if (boaterFish == 0) {
             boaterZeros++;
+        }
         weightTotal += boaterWeight;
         double boaterWeightAfterPenalties = boaterWeight - (boaterFish - boaterFishAlive) * DEAD_FISH_PENALTY;
         if (boaterWeightAfterPenalties > bigBagWeight) {
@@ -293,8 +305,9 @@ public class Tournament {
         teamWeights.get(0).setPlace(1);
         int j = 1;
         for (int i = 2; i <= teamWeights.size(); i++) {
-            if (teamWeights.get(i-2).getTeamWeight() != teamWeights.get(i-1).getTeamWeight())
+            if (teamWeights.get(i-2).getTeamWeight() != teamWeights.get(i-1).getTeamWeight()) {
                 j = i;
+            }
             teamWeights.get(i-1).setPlace(j);
         }
         return teamWeights;
@@ -318,16 +331,17 @@ public class Tournament {
                         day1.getCoAnglerFishAlive(), day1.getCoAnglerWeight(),
                         day1.getCoAnglerBigBass(), 0,0,0,"");
                 newEntry.setBoaterFishedDay1(true);
-                if (day1.getCoAngler() != null)
+                if (day1.getCoAngler() != null) {
                     newEntry.setCoAnglerFishedDay1(true);
+                }
                 lst.add(newEntry);
             }
         }
         for (TeamWeight day2 : dailyWeighIns) {
             if(day2.getDay() == 2) {
                 TwoDayTeamWeight myDay1 = null;
-                for (TwoDayTeamWeight entry : lst){
-                    if (day2.getBoater().equals(entry.getBoater())){
+                for (TwoDayTeamWeight entry : lst) {
+                    if (day2.getBoater().equals(entry.getBoater())) {
                         myDay1 = entry;
                         break;
                     }
@@ -354,8 +368,9 @@ public class Tournament {
                             day2.getCoAnglerFish(), day2.getCoAnglerFishAlive(),
                             day2.getCoAnglerWeight(), day2.getCoAnglerBigBass());
                     newEntry.setBoaterFishedDay2(true);
-                    if (day2.getCoAngler() != null)
+                    if (day2.getCoAngler() != null) {
                         newEntry.setCoAnglerFishedDay2(true);
+                    }
                     lst.add(newEntry);
                 }
             }
@@ -364,8 +379,9 @@ public class Tournament {
         lst.get(0).setPlace(1);
         int j = 1;
         for (int i = 2; i <= lst.size(); i++) {
-            if (lst.get(i-2).getTotalCombinedWeight() != lst.get(i-1).getTotalCombinedWeight())
+            if (lst.get(i-2).getTotalCombinedWeight() != lst.get(i-1).getTotalCombinedWeight()) {
                 j = i;
+            }
             lst.get(i-1).setPlace(j);
         }
         return lst;
@@ -422,10 +438,12 @@ public class Tournament {
     public static int getTournamentPointsPossible() {
         int pointsPossible = 0;
         for (Tournament tournament: tournaments) {
-            if (tournament.isTwoDay)
+            if (tournament.isTwoDay) {
                 pointsPossible += 3;
-            else
+            }
+            else {
                 pointsPossible += 2;
+            }
         }
         return pointsPossible;
     }
@@ -456,48 +474,54 @@ public class Tournament {
     public static String getConsistencyAward(int places) {
         ArrayList<Angler> sticks = inMajorityOfTournaments();
         sticks.sort(Comparator.comparing(Angler::getFishPerDay).reversed());
-        String top = "Consistency award (min. 50% participation)\n";
-        top += String.format("%-6s%-24s%-13s", "Rank", "Angler", "Fish per day") + "\n";
-        top += String.format("%3s%3s%-24s%8.2f",
-                "1", "", sticks.get(0).getName(), sticks.get(0).getFishPerDay()) + "\n";
-        int j = 1;
+        StringBuilder top = new StringBuilder("Consistency award (min. 50% participation)\n");
+        top.append(String.format("%-6s%-24s%-13s", "Rank", "Angler", "Fish per day")).append("\n");
+        top.append(String.format("%3s%3s%-24s%8.2f", "1", "", sticks.get(0).getName(), sticks.get(0).getFishPerDay()))
+                .append("\n");
+        int j = 0;
         for (int i = 1; i < places; i++) {
-            if (sticks.get(i).getFishPerDay() != sticks.get(i-1).getFishPerDay())
+            if (sticks.get(i).getFishPerDay() != sticks.get(i-1).getFishPerDay()) {
                 j = i;
-            top += String.format("%3d%3s%-24s%8.2f",
+            }
+            top.append(String.format("%3d%3s%-24s%8.2f",
                     j + 1, "",
                     sticks.get(i).getName(),
-                    sticks.get(i).getFishPerDay()) + "\n";
+                    sticks.get(i).getFishPerDay()))
+                    .append("\n");
         }
-        return top;
+        return top.toString();
     }
 
 
     public static String getHTMLConsistencyAward(int places) {
         ArrayList<Angler> sticks = inMajorityOfTournaments();
         sticks.sort(Comparator.comparing(Angler::getFishPerDay).reversed());
-        String top = "<table>" +
-                "<tr><td style=\"text-align: center; padding-top: 10px;\"colspan=\"3\"><b>Consistency award</b> (min. 50% participation)</td></tr>";
-        top += "<tr><th style=\"text-align: left\">Rank</th>"
-                +"<th style=\"text-align: left\">Angler</th>"
-                +"<th style=\"text-align: right\">Fish per day</th></tr>";
-        top += "<tr>"
-                + "<td style=\"text-align: center\">1</td>"
-                + "<td>" + sticks.get(0).getName() + "</td>"
-                + "<td style=\"text-align: right\">" + String.format("%.2f", sticks.get(0).getFishPerDay())+ "</td>"
-                + "</tr>";
-        int j = 1;
+        StringBuilder top = new StringBuilder("<table>" +
+                "<tr><td style=\"text-align: center; padding-top: 10px;\"colspan=\"3\">" +
+                "<b>Consistency award</b> (min. 50% participation)</td></tr>");
+        top.append("<tr><th style=\"text-align: left\">Rank</th>")
+                .append("<th style=\"text-align: left\">Angler</th>")
+                .append("<th style=\"text-align: right\">Fish per day</th></tr>");
+        top.append("<tr><td style=\"text-align: center\">1</td><td>")
+                .append(sticks.get(0).getName())
+                .append("</td><td style=\"text-align: right\">")
+                .append(String.format("%.2f", sticks.get(0).getFishPerDay()))
+                .append("</td></tr>");
+        int j = 0;
         for (int i = 1; i < places; i++) {
-            if (sticks.get(i).getFishPerDay() != sticks.get(i-1).getFishPerDay())
+            if (sticks.get(i).getFishPerDay() != sticks.get(i-1).getFishPerDay()) {
                 j = i;
-            top += "<tr>"
-                    + "<td style=\"text-align: center\">" + (j+1) + "</td>"
-                    + "<td>" + sticks.get(i).getName() + "</td>"
-                    + "<td style=\"text-align: right\">" + String.format("%.2f", sticks.get(i).getFishPerDay())+ "</td>"
-                    + "</tr>";
+            }
+            top.append("<tr><td style=\"text-align: center\">")
+                    .append(j+1)
+                    .append("</td><td>")
+                    .append(sticks.get(i).getName())
+                    .append("</td><td style=\"text-align: right\">")
+                    .append(String.format("%.2f", sticks.get(i).getFishPerDay()))
+                    .append("</td></tr>");
         }
-        top += "</table>";
-        return top;
+        top.append("</table>");
+        return top.toString();
     }
 
     /**
@@ -511,85 +535,88 @@ public class Tournament {
     public static String getQualityAward(int places) {
         ArrayList<Angler> sticks = inMajorityOfTournaments();
         sticks.sort(Comparator.comparing(Angler::getWeightPerDay).reversed());
-        String top = "Quality award (min. 50% participation)\n";
-        top += String.format("%-6s%-18s%-13s", "Rank", "Angler", "Weight per day") + "\n";
-        top += String.format("%3s%3s%-18s%9.2f",
-                "1", "", sticks.get(0).getName(), sticks.get(0).getWeightPerDay()) + "\n";
-        int j = 1;
+        StringBuilder top = new StringBuilder("Quality award (min. 50% participation)\n");
+        top.append(String.format("%-6s%-18s%-13s", "Rank", "Angler", "Weight per day")).append("\n");
+        top.append(String.format("%3s%3s%-18s%9.2f", "1", "", sticks.get(0).getName(), sticks.get(0).getWeightPerDay()))
+                .append("\n");
+        int j = 0;
         for (int i = 1; i < places; i++) {
-            if (sticks.get(i).getWeightPerDay() != sticks.get(i-1).getWeightPerDay())
+            if (sticks.get(i).getWeightPerDay() != sticks.get(i-1).getWeightPerDay()) {
                 j = i;
-            top += String.format("%3d%3s%-18s%9.2f",
+            }
+            top.append(String.format("%3d%3s%-18s%9.2f",
                     j + 1, "",
                     sticks.get(i).getName(),
-                    sticks.get(i).getWeightPerDay()) + "\n";
+                    sticks.get(i).getWeightPerDay()))
+                    .append("\n");
         }
-        return top;
+        return top.toString();
     }
 
     public static String getHTMLQualityAward(int places) {
         ArrayList<Angler> sticks = inMajorityOfTournaments();
         sticks.sort(Comparator.comparing(Angler::getWeightPerDay).reversed());
-        String top = "<table>" +
-                "<tr><td style=\"text-align: center; padding-top: 10px;\" colspan=\"3\"><b>Quality award</b> (min. 50% participation)</td></tr>";
-        top += "<tr><th style=\"text-align: left\">Rank</th>"
-                +"<th style=\"text-align: left; padding-left: 5px;\">Angler</th>"
-                +"<th style=\"text-align: right\">Weight per day</th></tr>";
-        top += "<tr>"
-                + "<td style=\"text-align: center\">1</td>"
-                + "<td  style=\"text-align: left; padding-left: 5px;\">" + sticks.get(0).getName() + "</td>"
-                + "<td style=\"text-align: right\">" + String.format("%.2f", sticks.get(0).getWeightPerDay())+ "</td>"
-                + "</tr>";
-        int j = 1;
+        StringBuilder top = new StringBuilder("<table>" +
+                "<tr><td style=\"text-align: center; padding-top: 10px;\" colspan=\"3\">" +
+                "<b>Quality award</b> (min. 50% participation)</td></tr>");
+        top.append("<tr><th style=\"text-align: left\">Rank</th>")
+                .append("<th style=\"text-align: left; padding-left: 5px;\">Angler</th>")
+                .append("<th style=\"text-align: right\">Weight per day</th></tr>");
+        top.append("<tr><td style=\"text-align: center\">1</td>")
+                .append("<td  style=\"text-align: left; padding-left: 5px;\">")
+                .append(sticks.get(0).getName())
+                .append("</td><td style=\"text-align: right\">")
+                .append(String.format("%.2f", sticks.get(0).getWeightPerDay()))
+                .append("</td></tr>");
+        int j = 0;
         for (int i = 1; i < places; i++) {
-            if (sticks.get(i).getWeightPerDay() != sticks.get(i-1).getWeightPerDay())
+            if (sticks.get(i).getWeightPerDay() != sticks.get(i-1).getWeightPerDay()) {
                 j = i;
-
-            top += "<tr>"
-                    + "<td style=\"text-align: center\">" + (j+1) + "</td>"
-                    + "<td  style=\"text-align: left; padding-left: 5px;\">" + sticks.get(i).getName() + "</td>"
-                    + "<td style=\"text-align: right\">" + String.format("%.2f", sticks.get(i).getWeightPerDay())+ "</td>"
-                    + "</tr>";
+            }
+            top.append("<tr><td style=\"text-align: center\">")
+                    .append(j + 1)
+                    .append("</td><td  style=\"text-align: left; padding-left: 5px;\">")
+                    .append(sticks.get(i).getName())
+                    .append("</td><td style=\"text-align: right\">")
+                    .append(String.format("%.2f", sticks.get(i).getWeightPerDay()))
+                    .append("</td></tr>");
         }
-        top += "</table>";
-        return top;
+        top.append("</table>");
+        return top.toString();
     }
 
     public static String getMostBigBags(int places) {
         ArrayList<Angler> sticks = Angler.getMembers();
-        for (Angler stick: sticks)
+        for (Angler stick: sticks) {
             stick.setBigBags();
+        }
         sticks.sort(Comparator.comparing(Angler::getBigBags).reversed());
-        String top = String.format("%-10s%-15s", "", "Most big bags")+"\n";
-        top += String.format("%-6s%-19s%-13s", "Rank", "Angler", "Big bags")+"\n";
-        top += String.format("%3s%3s%-19s%5d%5s%-70s",
+        StringBuilder top = new StringBuilder(String.format("%-10s%-15s", "", "Most big bags")+"\n");
+        top.append(String.format("%-6s%-19s%-13s", "Rank", "Angler", "Big bags")).
+                append("\n")
+                .append(String.format("%3s%3s%-19s%5d%5s%-70s",
                 "1", "",
                 sticks.get(0).getName(),
                 sticks.get(0).getBigBags(), "",
-                sticks.get(0).getBigBagLakes()) + "\n";
+                sticks.get(0).getBigBagLakes()))
+                .append("\n");
         int i = 1;
-        int j = 1;
-        if (sticks.get(i).getBigBags() == sticks.get(i-1).getBigBags()){
-            top += String.format("%3s%3s%-19s%3d%3s%-70s",
-                    j, "",
-                    sticks.get(i).getName(),
-                    sticks.get(i).getBigBags(), "",
-                    sticks.get(i).getBigBagLakes()) + "\n";
-            i++;
-        }
+        int j = 0;
         while (j < places) {
-            if (sticks.get(i).getBigBags() != sticks.get(i-1).getBigBags())
+            if (sticks.get(i).getBigBags() != sticks.get(i-1).getBigBags()) {
                 j = i;
-            if (j >= places || sticks.get(i).getBigBags() == 0)
+            }
+            if (j >= places || sticks.get(i).getBigBags() == 0) {
                 break;
-            top += String.format("%3d%3s%-19s%5d%5s%-70s",
+            }
+            top.append(String.format("%3d%3s%-19s%5d%5s%-70s",
                     j + 1, "",
                     sticks.get(i).getName(),
                     sticks.get(i).getBigBags(), "",
-                    sticks.get(i).getBigBagLakes()) + "\n";
+                    sticks.get(i).getBigBagLakes())).append("\n");
             i++;
         }
-        return top;
+        return top.toString();
     }
 
     public static String getMostWins(int places) {
@@ -598,125 +625,108 @@ public class Tournament {
             stick.setWins();
         }
         sticks.sort(Comparator.comparing(Angler::getWins).reversed());
-        String top = String.format("%-10s%-10s","","Most wins")+"\n";
-        top += String.format("%-6s%-19s%-4s", "Rank", "Angler", "Wins")+"\n";
-        top += String.format("%3s%3s%-19s%3d%3s%-70s",
+        StringBuilder top = new StringBuilder(String.format("%-10s%-10s","","Most wins")+"\n");
+        top.append(String.format("%-6s%-19s%-4s", "Rank", "Angler", "Wins")).append("\n").append(String.format("%3s%3s%-19s%3d%3s%-70s",
                 "1", "",
                 sticks.get(0).getName(),
                 sticks.get(0).getWins(), "",
-                sticks.get(0).getWinLakes()) + "\n";
+                sticks.get(0).getWinLakes())).append("\n");
         int i = 1; //index
-        int j = 1; //place
-        if (sticks.get(i).getWins() == sticks.get(i-1).getWins()){
-            top += String.format("%3s%3s%-19s%3d%3s%-70s",
-                    j, "",
-                    sticks.get(i).getName(),
-                    sticks.get(i).getWins(), "",
-                    sticks.get(i).getWinLakes()) + "\n";
-            i++;
-        }
+        int j = 0; //place
         while (j < places) {
-            //int place = j;
             if (sticks.get(i).getWins() != sticks.get(i-1).getWins()) {
                 j = i;
-                //place = j+1;
             }
-            if (j >= places || sticks.get(i).getWins() == 0)
+            if (j >= places || sticks.get(i).getWins() == 0) {
                 break;
-            top += String.format("%3s%3s%-19s%3d%3s%-70s",
+            }
+            top.append(String.format("%3s%3s%-19s%3d%3s%-70s",
                     j + 1, "",
                     sticks.get(i).getName(),
                     sticks.get(i).getWins(), "",
-                    sticks.get(i).getWinLakes()) + "\n";
+                    sticks.get(i).getWinLakes())).append("\n");
             i++;
         }
-        return top;
+        return top.toString();
     }
 
     public static String getHTMLMostBigBagsAndWins(int places) {
         ArrayList<Angler> sticks = Angler.getMembers();
-        for (Angler stick: sticks)
+        for (Angler stick: sticks) {
             stick.setBigBags();
-        sticks.sort(Comparator.comparing(Angler::getBigBags).reversed());
-        String top = "<center><table>" +
-                "<tr><td style=\"text-align: center; padding-top: 10px; padding-bottom: 0px;\" colspan=\"4\"><b>Most big bags</b></td></tr>";
-        top += "<tr><th style=\"text-align: left\">Rank</th>"
-                +"<th style=\"text-align: left; padding-left: 5px;\">Angler</th>"
-                +"<th>Big bags</th></tr>";
-        top += "<tr>"
-                + "<td style=\"text-align: center\">1</td>"
-                + "<td style=\"padding-left: 5px;\">" + sticks.get(0).getName() + "</td>"
-                + "<td style=\"text-align: center\">" + sticks.get(0).getBigBags() + "</td>"
-                + "<td>" + sticks.get(0).getBigBagLakes() + "</td>"
-                + "</tr>";
-        int i = 1;
-        int j = 1;
-        if (sticks.get(i).getBigBags() == sticks.get(i-1).getBigBags()){
-            top += "<tr>"
-                    + "<td style=\"text-align: center\">" + j + "</td>"
-                    + "<td style=\"padding-left: 5px;\">" + sticks.get(i).getName() + "</td>"
-                    + "<td style=\"text-align: center\">" + sticks.get(i).getBigBags() + "</td>"
-                    + "<td>" + sticks.get(i).getBigBagLakes() + "</td>"
-                    + "</tr>";
-            i++;
         }
-        while (j<places) {
-            if (sticks.get(i).getBigBags() != sticks.get(i-1).getBigBags())
+        sticks.sort(Comparator.comparing(Angler::getBigBags).reversed());
+        StringBuilder top = new StringBuilder("<center><table>" +
+                "<tr><td style=\"text-align: center; padding-top: 10px; padding-bottom: 0px;\" colspan=\"4\">" +
+                "<b>Most big bags</b></td></tr>");
+        top.append("<tr><th style=\"text-align: left\">Rank</th>")
+                .append("<th style=\"text-align: left; padding-left: 5px;\">Angler</th><th>Big bags</th></tr>")
+                .append("<tr><td style=\"text-align: center\">1</td><td style=\"padding-left: 5px;\">")
+                .append(sticks.get(0).getName())
+                .append("</td><td style=\"text-align: center\">")
+                .append(sticks.get(0).getBigBags())
+                .append("</td><td>")
+                .append(sticks.get(0).getBigBagLakes())
+                .append("</td></tr>");
+        int i = 1;
+        int j = 0;
+        while (j < places) {
+            if (sticks.get(i).getBigBags() != sticks.get(i-1).getBigBags()) {
                 j = i;
-            if (j >= places || sticks.get(i).getBigBags() == 0)
+            }
+            if (j >= places || sticks.get(i).getBigBags() == 0) {
                 break;
-            top += "<tr>"
-                    + "<td style=\"text-align: center\">" + (j+1) + "</td>"
-                    + "<td style=\"padding-left: 5px;\">" + sticks.get(i).getName() + "</td>"
-                    + "<td style=\"text-align: center\">" + sticks.get(i).getBigBags() + "</td>"
-                    + "<td>" + sticks.get(i).getBigBagLakes() + "</td>"
-                    + "</tr>";
+            }
+            top.append("<tr><td style=\"text-align: center\">")
+                    .append(j + 1)
+                    .append("</td><td style=\"padding-left: 5px;\">")
+                    .append(sticks.get(i).getName())
+                    .append("</td><td style=\"text-align: center\">")
+                    .append(sticks.get(i).getBigBags())
+                    .append("</td><td>")
+                    .append(sticks.get(i).getBigBagLakes())
+                    .append("</td></tr>");
             i++;
         }
 
-        for (Angler stick : sticks)
+        for (Angler stick : sticks) {
             stick.setWins();
+        }
         sticks.sort(Comparator.comparing(Angler::getName));
         sticks.sort(Comparator.comparing(Angler::getWins).reversed());
-        top += "<tr><td style=\"text-align: center; padding-top: 15px; padding-bottom: 0px;\" colspan=\"4\"><b>Most wins</b></td></tr>";
-        top += "<tr><th style=\"text-align: left\">Rank</th>"
-                +"<th style=\"text-align: left; padding-left: 5px;\">Angler</th>"
-                +"<th>Wins</th></tr>";
-        top += "<tr>"
-                + "<td style=\"text-align: center\">1</td>"
-                + "<td style=\"padding-left: 5px;\">" + sticks.get(0).getName() + "</td>"
-                + "<td style=\"text-align: center\">" + sticks.get(0).getWins() + "</td>"
-                + "<td>" + sticks.get(0).getWinLakes() + "</td>"
-                + "</tr>";
+        top.append("<tr><td style=\"text-align: center; padding-top: 15px; padding-bottom: 0px;\" colspan=\"4\">")
+                .append("<b>Most wins</b></td></tr>")
+                .append("<tr><th style=\"text-align: left\">Rank</th>")
+                .append("<th style=\"text-align: left; padding-left: 5px;\">Angler</th><th>Wins</th></tr>");
+        top.append("<tr><td style=\"text-align: center\">1</td><td style=\"padding-left: 5px;\">")
+                .append(sticks.get(0).getName())
+                .append("</td><td style=\"text-align: center\">")
+                .append(sticks.get(0).getWins())
+                .append("</td><td>")
+                .append(sticks.get(0).getWinLakes())
+                .append("</td></tr>");
         int a = 1; //index
-        int b = 1; //place
-        if (sticks.get(a).getWins() == sticks.get(a-1).getWins()){
-            top += "<tr>"
-                    + "<td style=\"text-align: center\">" + b + "</td>"
-                    + "<td style=\"padding-left: 5px;\">" + sticks.get(a).getName() + "</td>"
-                    + "<td style=\"text-align: center\">" + sticks.get(a).getWins() + "</td>"
-                    + "<td>" + sticks.get(a).getWinLakes() + "</td>"
-                    + "</tr>";
-            a++;
-        }
+        int b = 0; //place
         while (b < places) {
-            //int place = b;
             if (sticks.get(a).getWins() != sticks.get(a-1).getWins()) {
                 b = a;
-                //place = b+1;
             }
-            if (b >= places || sticks.get(a).getWins() == 0)
+            if (b >= places || sticks.get(a).getWins() == 0) {
                 break;
-            top += "<tr>"
-                    + "<td style=\"text-align: center\">" + (b+1) + "</td>"
-                    + "<td style=\"padding-left: 5px;\">" + sticks.get(a).getName() + "</td>"
-                    + "<td style=\"text-align: center\">" + sticks.get(a).getWins() + "</td>"
-                    + "<td>" + sticks.get(a).getWinLakes() + "</td>"
-                    + "</tr>";
+            }
+            top.append("<tr><td style=\"text-align: center\">")
+                    .append(b + 1)
+                    .append("</td><td style=\"padding-left: 5px;\">")
+                    .append(sticks.get(a).getName())
+                    .append("</td><td style=\"text-align: center\">")
+                    .append(sticks.get(a).getWins())
+                    .append("</td><td>")
+                    .append(sticks.get(a).getWinLakes())
+                    .append("</td></tr>");
             a++;
         }
-        top += "</table></center>";
-        return top;
+        top.append("</table></center>");
+        return top.toString();
     }
 
     public static String getAwards() {
@@ -745,94 +755,107 @@ public class Tournament {
     }
 
     public String results() {
-        String standings = "";
+        StringBuilder standings = new StringBuilder();
         if (!isTwoDay) {
-            standings += String.format("%-6s%-19s%6s%7s%8s%4s%-19s%6s%7s%8s%8s",
+            standings.append(String.format("%-6s%-19s%6s%7s%8s%4s%-19s%6s%7s%8s%8s",
                     "Place", "Boater", "Fish", "Big", "Weight", "",
-                    "Co-angler", "Fish", "Big", "Weight", "Total")
-                    + "\n";
+                    "Co-angler", "Fish", "Big", "Weight", "Total")).append("\n");
             ArrayList<TeamWeight> finishes = new ArrayList<>(getTeamWeights());
-            for (TeamWeight teamWeight : finishes)
-                standings += teamWeight + "\n";
+            for (TeamWeight teamWeight : finishes) {
+                standings.append(teamWeight).append("\n");
+            }
         }
         else { // two-day standings
-            standings += String.format("%-6s%-18s%-40s%-19s%-40s", "", "",
+            standings.append(String.format("%-6s%-18s%-40s%-19s%-40s", "", "",
                     "|        Day 1        |        Day 2        |", "",
-                    "|        Day 1        |        Day 2        |") + "\n";
-            standings += String.format("%-6s%-18s%-22s%-23s%1s%-18s%-22s%-23s%6s",
+                    "|        Day 1        |        Day 2        |")).append("\n")
+                    .append(String.format("%-6s%-18s%-22s%-23s%1s%-18s%-22s%-23s%6s",
                     "Place", "Boater", "| Fish   Big   Weight ",
                     "| Fish   Big   Weight |", "",
                     "Co-angler", "| Fish   Big   Weight",
-                    "| Fish   Big   Weight |", "Total")
-                    + "\n";
+                    "| Fish   Big   Weight |", "Total")).append("\n");
             ArrayList<TwoDayTeamWeight> finishes = new ArrayList<>(getTwoDayTeamWeights());
-            for (TwoDayTeamWeight teamWeight : finishes)
-                standings += teamWeight + "\n";
+            for (TwoDayTeamWeight teamWeight : finishes) {
+                standings.append(teamWeight).append("\n");
+            }
         }
-        return standings;
+        return standings.toString();
     }
 
     public String HTMLResults() {
-        String standings = "";
+        StringBuilder standings = new StringBuilder();
         if (!isTwoDay) {
-            standings += "<center><table style=\"width:50em\"><tr>"
-                            + "<th style=\"text-align: left\">Place</th>"
-                            + "<th style=\"text-align: left\">Boater</th>"
-                            + "<th>Fish</th>"
-                            + "<th style=\"text-align: right\">Big</th>"
-                            + "<th style=\"text-align: right\">Weight</th><th style=\"width:1em\"></th>"
-                            + "<th style=\"text-align: left\">Co-angler</th>"
-                            + "<th>Fish</th>"
-                            + "<th style=\"text-align: right\">Big</th>"
-                            + "<th style=\"text-align: right\">Weight</th>"
-                            + "<th style=\"text-align: right\">Total</th>"
-                        + "</tr>";
+            standings.append("""
+                    <center>
+                        <table style="width:50em">
+                            <tr>
+                                <th style="text-align: left">Place</th>
+                                <th style="text-align: left">Boater</th>
+                                <th>Fish</th>
+                                <th style="text-align: right">Big</th>
+                                <th style="text-align: right">Weight</th>
+                                <th style="width:1em"></th>
+                                <th style="text-align: left">Co-angler</th>
+                                <th>Fish</th>
+                                <th style="text-align: right">Big</th>
+                                <th style="text-align: right">Weight</th>
+                                <th style="text-align: right">Total</th>
+                            </tr>
+            """);
             ArrayList<TeamWeight> finishes = new ArrayList<>(getTeamWeights());
-            for (TeamWeight teamWeight : finishes)
-                standings += teamWeight.toHTMLString();
+            for (TeamWeight teamWeight : finishes) {
+                standings.append(teamWeight.toHTMLString());
+            }
         }
         else { // two-day standings
-            standings += "<center><table style=\"width:62em\"><tr>"
-                        + "<th colspan=\"2\"></th>"
-                        + "<th colspan=\"3\" style=\"border-left: 1px dashed gray;\">Day 1</th>"
-                            // style="border-collapse: collapse;" isn't working
-                        + "<th colspan=\"3\" style=\"border-left: 1px dashed gray;\">Day 2</th>"
-                        + "<th style=\"border-left: 1px dashed gray;\"></th>"
-                        + "<th colspan=\"3\" style=\"border-left: 1px dashed gray;\">Day 1</th>"
-                        + "<th colspan=\"3\" style=\"border-left: 1px dashed gray;\">Day 2</th>"
-                        + "<th style=\"border-left: 1px dashed gray;\"></th>"
-                    + "</tr>";
-            standings += "<tr>"
-                            + "<th style=\"text-align: left\">Place</th>"
-                            + "<th style=\"text-align: left\">Boater</th>"
-                            + "<th style=\"border-left: 1px dashed gray;\">Fish</th>"
-                            + "<th style=\"text-align: right\">Big</th>"
-                            + "<th style=\"text-align: right\">Weight</th>"
-                            + "<th style=\"border-left: 1px dashed gray;\">Fish</th>"
-                            + "<th style=\"text-align: right\">Big</th>"
-                            + "<th style=\"text-align: right\">Weight</th>" //<th style="width:1em"></th>
-                            + "<th style=\"text-align: left; border-left: 1px dashed gray; padding-left: 5px;\">Co-angler</th>"
-                            + "<th style=\"border-left: 1px dashed gray;\">Fish</th>"
-                            + "<th style=\"text-align: right\">Big</th>"
-                            + "<th style=\"text-align: right\">Weight</th>"
-                            + "<th style=\"border-left: 1px dashed gray;\">Fish</th>"
-                            + "<th style=\"text-align: right\">Big</th>"
-                            + "<th style=\"text-align: right\">Weight</th>"
-                            + "<th style=\"text-align: right; border-left: 1px dashed gray;\">Total</th>"
-                        + "</tr>";
+            standings.append("""
+                    <center>
+                        <table style="width:62em">
+                            <tr>
+                                <th colspan="2"></th>
+                                <th colspan="3" style="border-left: 1px dashed gray;">Day 1</th>
+                                <th colspan="3" style="border-left: 1px dashed gray;">Day 2</th>
+                                <th style="border-left: 1px dashed gray;"></th>
+                                <th colspan="3" style="border-left: 1px dashed gray;">Day 1</th>
+                                <th colspan="3" style="border-left: 1px dashed gray;">Day 2</th>
+                                <th style="border-left: 1px dashed gray;"></th>
+                            </tr>
+            """);
+            standings.append("""
+                    <tr>
+                        <th style="text-align: left">Place</th>
+                        <th style="text-align: left">Boater</th>
+                        <th style="border-left: 1px dashed gray;">Fish</th>
+                        <th style="text-align: right">Big</th>
+                        <th style="text-align: right">Weight</th>
+                        <th style="border-left: 1px dashed gray;">Fish</th>
+                        <th style="text-align: right">Big</th>
+                        <th style="text-align: right">Weight</th>
+                        <th style="text-align: left; border-left: 1px dashed gray; padding-left: 5px;">Co-angler</th>
+                        <th style="border-left: 1px dashed gray;">Fish</th>
+                        <th style="text-align: right">Big</th>
+                        <th style="text-align: right">Weight</th>
+                        <th style="border-left: 1px dashed gray;">Fish</th>
+                        <th style="text-align: right">Big</th>
+                        <th style="text-align: right">Weight</th>
+                        <th style="text-align: right; border-left: 1px dashed gray;">Total</th>
+                    </tr>
+            """);
             ArrayList<TwoDayTeamWeight> finishes = new ArrayList<>(getTwoDayTeamWeights());
-            for (TwoDayTeamWeight teamWeight : finishes)
-                standings += teamWeight.toHTMLString();
+            for (TwoDayTeamWeight teamWeight : finishes) {
+                standings.append(teamWeight.toHTMLString());
+            }
         }
-        standings += "</table></center>";
-        return standings;
+        standings.append("</table></center>");
+        return standings.toString();
     }
 
     public String toString() {
         String title = month + ": " + lake;
         int half = 50;
-        if (isTwoDay)
+        if (isTwoDay) {
             half = 68;
+        }
         int offset = half - title.length()/2;
         String bBWeight = "none   ";
         String bBAngler = "";
@@ -865,10 +888,12 @@ public class Tournament {
             String gap = "%"+ (70-spac1-spac2)/3 +"s";
             int indivWeighIns = 0;
                 for (TeamWeight teamWeight : teamWeights) {
-                    if (teamWeight.getCoAngler() != null)
+                    if (teamWeight.getCoAngler() != null) {
                         indivWeighIns += 2;
-                    else
+                    }
+                    else {
                         indivWeighIns += 1;
+                    }
                 }
 
             output += String.format("%-9s%2d"+gap+"%-9s%2.0f%%"+gap
@@ -946,10 +971,12 @@ public class Tournament {
         else {
             int indivWeighIns = 0;
             for (TeamWeight teamWeight : teamWeights) {
-                if (teamWeight.getCoAngler() != null)
+                if (teamWeight.getCoAngler() != null) {
                     indivWeighIns += 2;
-                else
+                }
+                else {
                     indivWeighIns += 1;
+                }
             }
             t1 = "<center><table style=\"width:62em\">"
                     + "<tr>"

@@ -310,11 +310,11 @@ public class Season2021 {
         //System.out.println(dec);
 
 
-        //System.out.println(Angler.getStandings());
-        //System.out.println(Tournament.getAwards());
-        //System.out.println(Angler.getMissingContacts());
-        //System.out.println(Angler.getListServe());
-        //System.out.println(Angler.getSeasonRecap("colin"));
+//        System.out.println(Angler.getStandings());
+//        System.out.println(Tournament.getAwards());
+//        System.out.println(Angler.getMissingContacts());
+//        System.out.println(Angler.getListServe());
+//        System.out.println(Angler.getSeasonRecap("colin"));
 
 
         // Emails meeting attendance

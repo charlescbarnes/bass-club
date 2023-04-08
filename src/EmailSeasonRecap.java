@@ -18,7 +18,7 @@ public class EmailSeasonRecap extends Email {
      * @param anglerNickname    the <code>Angler</code>'s key value in <code>memberMap</code>
      */
     public EmailSeasonRecap(String anglerNickname) {
-        super(new ArrayList<String>(){{
+        super(new ArrayList<>() {{
             add(Angler.getMemberMap().get(anglerNickname).getEmail());
         }},"", Angler.getSeasonRecapHTML(anglerNickname));
         setSubject("Your season recap! - Big Sandy Creek Bass Club");

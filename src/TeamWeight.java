@@ -31,19 +31,23 @@ public class TeamWeight {
         this.boater = boater;
         this.boaterFish = boaterFish;
         this.boaterFishAlive = boaterFishAlive;
-        this.boaterWeight += boaterWeight - (boaterFish - boaterFishAlive)*Tournament.DEAD_FISH_PENALTY;
-        if (boaterBigBass == 0)
+        this.boaterWeight += boaterWeight - (boaterFish - boaterFishAlive) * Tournament.DEAD_FISH_PENALTY;
+        if (boaterBigBass == 0) {
             this.boaterBigBass = "";
-        else
+        }
+        else {
             this.boaterBigBass = String.format("%.2f", boaterBigBass);
+        }
         this.coAngler = coAngler;
         coAnglerFish = coFish;
         coAnglerFishAlive = coFishAlive;
-        coAnglerWeight += coWeight - (coAnglerFish - coAnglerFishAlive)*Tournament.DEAD_FISH_PENALTY;
-        if (coBigBass == 0)
+        coAnglerWeight += coWeight - (coAnglerFish - coAnglerFishAlive) * Tournament.DEAD_FISH_PENALTY;
+        if (coBigBass == 0) {
             coAnglerBigBass = "";
-        else
+        }
+        else {
             coAnglerBigBass = String.format("%.2f", coBigBass);
+        }
         teamWeight += boaterWeight + coAnglerWeight;
 
         boater.addFish(boaterFish);
@@ -75,19 +79,23 @@ public class TeamWeight {
         this.boater = boater;
         this.boaterFish = boaterFish;
         this.boaterFishAlive = boaterFishAlive;
-        this.boaterWeight += boaterWeight - (boaterFish - boaterFishAlive)*Tournament.DEAD_FISH_PENALTY;
-        if (boaterBigBass == 0)
+        this.boaterWeight += boaterWeight - (boaterFish - boaterFishAlive) * Tournament.DEAD_FISH_PENALTY;
+        if (boaterBigBass == 0) {
             this.boaterBigBass = "";
-        else
+        }
+        else {
             this.boaterBigBass = String.format("%.2f", boaterBigBass);
+        }
         this.coAngler = coAngler;
         coAnglerFish = coFish;
         coAnglerFishAlive = coFishAlive;
         coAnglerWeight += coWeight - (coAnglerFish - coAnglerFishAlive)*Tournament.DEAD_FISH_PENALTY;
-        if (coBigBass == 0)
+        if (coBigBass == 0) {
             coAnglerBigBass = "";
-        else
+        }
+        else {
             coAnglerBigBass = String.format("%.2f", coBigBass);
+        }
         teamWeight += boaterWeight + coAnglerWeight;
 
         boater.addFish(boaterFish);
